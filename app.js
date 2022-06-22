@@ -33,9 +33,8 @@ app.use((err,req,res,next)=>{
     }
 })
 
-db.sequelize.sync().then(()=>{
+db.sequelize.sync({alter:false}).then(()=>{
     app.listen(process.env.PORT,()=>{
         console.log(`Listening on port ${process.env.PORT}`)
     })    
 })
-

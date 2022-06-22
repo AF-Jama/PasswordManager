@@ -7,6 +7,10 @@ module.exports = (sequelize,DataTypes)=>{
             autoIncrement:true,
             primaryKey:true
         },
+        site:{
+            type:DataTypes.STRING(30),
+            allowNull:false
+        },
         encrypt_password:{
             type:DataTypes.STRING(256),
             allowNull:false,
