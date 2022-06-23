@@ -11,7 +11,8 @@ app.use(express.json()) // to parse incoming json payload
 app.use(cookieParser()) // cookie parser middleware
 
 
-app.use('/auth',require('./routes/authorisation.js'))
+app.use('/auth',require('./routes/authorisation.js')) // auth endpoint
+app.use('/actions',require('./routes/actions.js')) // actions endpoint
 
 
 // base route -> which points login page when NOT logged in and redirects to password manager main page when user is logged  
@@ -33,7 +34,7 @@ app.use((err,req,res,next)=>{
     }
 })
 
-db.sequelize.sync({alter:false}).then(()=>{
+db.sequelize.sync().then(()=>{
     app.listen(process.env.PORT,()=>{
         console.log(`Listening on port ${process.env.PORT}`)
     })    

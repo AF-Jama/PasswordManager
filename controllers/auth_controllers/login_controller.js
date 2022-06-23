@@ -10,15 +10,19 @@ const loginController = async (req,res,next) =>{
         const user = await db.userTable.findOne({where:{username:username}})
         if (!user) throw new Error("User does not exist, please create account");
         const masterPass = await db.masterTable.findOne({where:{userId:user.id}})
-        console.log(masterPass.master_password)
         const passwordCompare = await compare(masterPassword,masterPass.master_password) // compares hash with plain text password
-        console.log(passwordCompare)
+        console.log(`Master password is: ${masterPass.master_password}`)
         if(passwordCompare){
             var hour = 3600000
             res.cookie('logged_in',true,{
                 expires: new Date(Date.now()+(hour*24*31)) // sets expiration date to one month to the future
             })
             res.cookie("username",username)
+
+            res.cookie('master_password',masterPass.master_password,{
+                expires: new Date(Date.now()+(hour*24*31)) // sets expiration date to one month to the future
+            }) // creates session
+
             return res.json({
                 msg:"Succesfully logged in"
             })
@@ -31,14 +35,14 @@ const loginController = async (req,res,next) =>{
 }
 
 
-const a = async ()=>{
-    const masterPass = await db.masterTable.findOne({where:{userId:3}})
-    const comaprebool = await compare("",masterPass.master_password)
-    console.log(comaprebool)
-}
+// const a = async ()=>{
+//     const masterPass = await db.masterTable.findOne({where:{userId:3}})
+//     const comaprebool = await compare("",masterPass.master_password)
+//     console.log(comaprebool)
+// }
 
 
-a()
+// a()
 
 module.exports = {
     loginController

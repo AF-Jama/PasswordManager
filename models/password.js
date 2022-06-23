@@ -9,7 +9,7 @@ module.exports = (sequelize,DataTypes)=>{
         },
         site:{
             type:DataTypes.STRING(30),
-            allowNull:false
+            allowNull:false,
         },
         encrypt_password:{
             type:DataTypes.STRING(256),
