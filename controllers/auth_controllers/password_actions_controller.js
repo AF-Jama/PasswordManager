@@ -29,7 +29,27 @@ const addPassword = async (req,res,next)=>{
 
 
 const deletePassword = async (req,res,next)=>{
+    //need to implement when interface is created
+}
 
+const deleteAllPasswords = async (req,res,next)=>{
+    // delete all passwords
+    console.log('.')
+    const masterPassword = req.cookies.master_password
+    console.log('..')
+    try {
+        console.log("here 1")
+        const masterPasswordRow = await db.masterTable.findOne({where:{master_password:masterPassword}}) 
+        console.log("here 2")
+        const masterPasswordId = masterPasswordRow.mid // returns master password primary key id which will be the foreign key in the password table
+        await db.passwordTable.destroy({where:{masterId:masterPasswordId}}) // destroys passwords for specific master password
+        console.log("here 3")
+        return res.send({
+            msg:"Succesfully deleted all your passwords"
+        })
+    } catch (error) {
+        next(error)
+    }
 }
 
 const editPassword = async (req,res,next)=>{
@@ -66,7 +86,9 @@ const editPassword = async (req,res,next)=>{
 
 // a()
 
+
 module.exports = {
     addPassword,
-    editPassword
+    editPassword,
+    deleteAllPasswords
 }
