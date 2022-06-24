@@ -22,7 +22,8 @@ module.exports = (sequelize,DataTypes)=>{
         }) // usetable primary key added to master table as foreign key
         masterTable.hasMany(models.passwordTable,{
             foreignKey:"masterId",
-            allowNull:false
+            allowNull:false,
+            onDelete:'cascade'
         }) // 1:m relationship 1 master key can be linked to many passowrds in password table 
     }
     return masterTable

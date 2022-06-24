@@ -10,6 +10,11 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json()) // to parse incoming json payload
 app.use(cookieParser()) // cookie parser middleware
 
+app.get('/login') // login page endpoint
+app.get('/mainpage') // main page endpoint containing each user password in a card
+app.get('/mainpage/edit') // edit page
+app.get('/mainpage/delete') // delete page
+app.get('/logout')
 
 app.use('/auth',require('./routes/authorisation.js')) // auth endpoint
 app.use('/actions',require('./routes/actions.js')) // actions endpoint
@@ -34,7 +39,7 @@ app.use((err,req,res,next)=>{
     }
 })
 
-db.sequelize.sync().then(()=>{
+db.sequelize.sync({alter:true}).then(()=>{
     app.listen(process.env.PORT,()=>{
         console.log(`Listening on port ${process.env.PORT}`)
     })    
