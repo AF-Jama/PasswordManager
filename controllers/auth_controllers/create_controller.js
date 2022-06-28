@@ -3,6 +3,7 @@ const { hash } = require('bcrypt')
 const saltRounds = 10
 
 const createAccount = async (req,res,next)=>{
+    console.log(req.body)
     console.log("Create account")
     const {name,username,email,masterPassword} = req.body  // destrucrures request payload
     const hash_password = await hash(masterPassword,saltRounds) // hashing of master password plain text
