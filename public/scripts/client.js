@@ -21,6 +21,29 @@ form.addEventListener('submit',async e=>{
     await checkUsername(usernameValue)
     await checkEmail(emailValue)
     checkPassword(masterPasswordValue)
+
+    // const form = e.currentTarget
+
+    
+    // console.log(`Name is ${nameValue}`)
+    // console.log(`Username is ${usernameValue}`)
+    // console.log("Form is ",form)
+    // console.log(`Email is ${emailValue}`)
+    // console.log(`Password is ${masterPasswordValue}`)
+
+    await fetch('/auth/create',{
+        method:"POST",
+        headers: {
+			"Content-Type": "application/json",
+			"Accept": "application/json"
+		},
+        body:JSON.stringify({
+            name:nameValue,
+            username:usernameValue,
+            email:emailValue,
+            masterPassword:masterPasswordValue,
+        })
+    })
 })
 
 
@@ -91,6 +114,8 @@ const onSuccess = (element,message)=>{
     parentElement.classList.add('success') // removes class on parent form group
     parentElement.classList.remove('error') // adds class error to parent form group
 
+    return true
+
 }
 
 // on error
@@ -103,4 +128,5 @@ const onError = (element,message)=>{
     pareElement.classList.add('error') // adds class error to parent form group
     pareElement.classList.remove('success') // removes class on parent form group
 
+    return false
 }

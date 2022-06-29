@@ -3,9 +3,8 @@ const { hash } = require('bcrypt')
 const saltRounds = 10
 
 const createAccount = async (req,res,next)=>{
-    console.log(req.body)
-    console.log("Create account")
     const {name,username,email,masterPassword} = req.body  // destrucrures request payload
+    console.log(`Name is ${name}`)
     const hash_password = await hash(masterPassword,saltRounds) // hashing of master password plain text
     const hour =  3600000
     try {
@@ -17,9 +16,10 @@ const createAccount = async (req,res,next)=>{
             expires: new Date(Date.now()+(hour*24*62))
         })// creates new user identifier cookie, required for possible targeted ads to new users in the first month
 
-        return res.status(201).send({
-            msg:"Succesfully created account, redirect to login page"
-        })
+        // res.status(201).send({
+        //     msg:"Succesfully created account, redirect to login page"
+        // })
+        res.redirect('/login')
     } catch (error) {
         console.log(error)
         error.status = 900

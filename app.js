@@ -9,10 +9,11 @@ const db = require('./models') // imports
 const cookieParser = require('cookie-parser')
 
 // middleware
-app.use(express.urlencoded({extended:false}))
 app.use(express.json()) // to parse incoming json payload
 app.use(cookieParser()) // cookie parser middleware
 app.use(cors())
+app.use(express.urlencoded({extended:false}))
+app.set('view engine', 'ejs');
 
 
 
@@ -28,12 +29,17 @@ app.use('/actions',require('./routes/actions.js')) // actions endpoint
 
 // base route -> which points login page when NOT logged in and redirects to password manager main page when user is logged  
 app.get('/',(req,res)=>{
+    console.log("Hello")
     res.json({msg:"Password manager"})
 })
 
 app.get('/create',(req,res)=>{
     res.sendFile(__dirname + '/public/templates/create_account.html')
 }) // create endpoint which renders create account page
+
+app.get('/login',(req,res)=>{
+    res.sendFile(__dirname + '/public/templates/login.html')
+})
 
 app.get('/users/exists',async (req,res)=>{
     const usernameQuery = req.query.username
@@ -78,8 +84,8 @@ app.use((err,req,res,next)=>{
     }
 })
 
-app.use(express.static(path.join(__dirname + '/public'))) // references public file in current directory
 
+app.use(express.static(path.join(__dirname + '/public'))) // references public file in current directory
 
 db.sequelize.sync().then(()=>{
     app.listen(process.env.PORT,()=>{

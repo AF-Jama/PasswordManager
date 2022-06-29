@@ -24,7 +24,13 @@ router.get('/',(req,res)=>{
     })
 })
 
-router.post('/create',validator.body(createUserSchema),createAccount)
+router.get('/hello',(req,res)=>{
+    res.send('<h1>Hello</h1>')
+})
+
+// validator.body(createUserSchema)
+
+router.post('/create',createAccount)
 
 router.post('/login',validator.body(loginSchema),loginController)
 
