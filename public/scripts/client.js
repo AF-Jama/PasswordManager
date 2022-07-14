@@ -8,42 +8,56 @@ const username = document.getElementById('form-control-username')
 const email = document.getElementById('form-control-email')
 const masterPassword = document.getElementById('form-control-masterPassword')
 const button = document.getElementById('create-account-btn')
+const xmlhttp = new XMLHttpRequest()
 
 // form event listener on click event
 form.addEventListener('submit',async e=>{
     e.preventDefault() // prevents default value from occuring which clears the page and reloads
     // values of inputs 
+    console.log("I am hewre right now")
     const nameValue = names.value.trim()
     const usernameValue = username.value.trim()
     const emailValue = email.value.trim()
     const masterPasswordValue = masterPassword.value.trim()
+    console.log("Hello..")
     // validatiing inputs
     await checkUsername(usernameValue)
     await checkEmail(emailValue)
     checkPassword(masterPasswordValue)
 
-    // const form = e.currentTarget
+    // const response = await fetch('/auth/create',{
+    //     method:"POST",
+    //     redirect:'follow',
+    //     headers: {
+	// 		"Content-Type": "application/json",
+	// 		"Accept": "application/json"
+	// 	},
+    //     body:JSON.stringify({
+    //         name:nameValue,
+    //         username:usernameValue,
+    //         email:emailValue,
+    //         masterPassword:masterPasswordValue,
+    //     })
+    // })
+    xmlhttp.open("POST",'/auth/create')
+    xmlhttp.setRequestHeader('Content-Type', 'application/json');
+    xmlhttp.setRequestHeader('Accept', 'application/json');
+    xmlhttp.send(JSON.stringify({
+             name:nameValue,
+             username:usernameValue,
+             email:emailValue,
+             masterPassword:masterPasswordValue,
+    }))
+    xmlhttp.onreadystatechange = function(){
+        console.log(xmlhttp.status)
+        if(xmlhttp.status===200){
+            // succesful creation of account meaning succesful insertion into table
+            return window.location.href = '/login'
+        }
+        window.location.href = '/create'
+        console.log("ERROR")
 
-    
-    // console.log(`Name is ${nameValue}`)
-    // console.log(`Username is ${usernameValue}`)
-    // console.log("Form is ",form)
-    // console.log(`Email is ${emailValue}`)
-    // console.log(`Password is ${masterPasswordValue}`)
-
-    await fetch('/auth/create',{
-        method:"POST",
-        headers: {
-			"Content-Type": "application/json",
-			"Accept": "application/json"
-		},
-        body:JSON.stringify({
-            name:nameValue,
-            username:usernameValue,
-            email:emailValue,
-            masterPassword:masterPasswordValue,
-        })
-    })
+    };
 })
 
 

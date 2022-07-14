@@ -8,6 +8,7 @@ const createAccount = async (req,res,next)=>{
     const hash_password = await hash(masterPassword,saltRounds) // hashing of master password plain text
     const hour =  3600000
     try {
+        console.log("Hello")
         console.log("Create controller hit")
         await db.userTable.create({name:name,username:username,email:email}).then(user=>db.masterTable.create({userId:user.id,master_password:hash_password}))
         // await t.commit() // commits trasaction after succesful creation
@@ -19,12 +20,20 @@ const createAccount = async (req,res,next)=>{
         // res.status(201).send({
         //     msg:"Succesfully created account, redirect to login page"
         // })
-        res.redirect('/login')
+        res.status(200)
+        // res.redirect('/login')
+        res.json({
+            msg:"SUCCESFUL"
+        })
     } catch (error) {
-        console.log(error)
-        error.status = 900
-        error.message = "Account already exists"
-        next(error)        
+        res.status(300)
+        res.json({
+            msg:"UNSUCCESFUL"
+        })
+        // console.log(error)
+        // error.status = 900
+        // error.message = "Account already exists"
+        // next(error)        
     }
 }
 

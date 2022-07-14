@@ -9,13 +9,33 @@
 </head>
 <body>
          <!--start of nav-->
-         <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">Password manager</a>
-            </div>
-          </nav>
+         <%- include('./partials/nav.ejs')%>
           <!--end of nav-->
 
           <!--Cards containing passwords which will be rendered dynamically-->
+          <%if(!data){
+            <div class = "container-fluid">
+              <h1 style="text-align: center">No Passwords stored on your account</h1>
+              <hr>
+              <a href=""><button>Add Passwords</button></a>
+            </div>
+          }%>
+          <%else{
+            <div class="row">
+              <%for (const password of data){
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">password.site</h5>
+                      <p class="card-text">Your password is shown below, click to reveal</p>
+                      <a href="#" class="btn btn-primary">password.encrypt_password</a>
+                    </div>
+                  </div>
+                </div>
+              }%>
+            </div>
+          }%>
+          
+
 </body>
 </html>

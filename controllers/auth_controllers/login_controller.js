@@ -23,14 +23,17 @@ const loginController = async (req,res,next) =>{
                 expires: new Date(Date.now()+(hour*24*31)) // sets expiration date to one month to the future
             }) // creates session
 
+            res.status(200)
             return res.json({
                 msg:"Succesfully logged in"
             })
         } 
         throw new Error("Wrong password"); // triggered if password and username are not matched and hence triggers error
     } catch (error) {
-        error.status = ""
-        next(error)
+        res.status(300)
+        res.json({
+            msg:"UNSUCCESFUL"
+        })
     }
 }
 

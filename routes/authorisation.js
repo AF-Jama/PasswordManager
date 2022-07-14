@@ -24,15 +24,11 @@ router.get('/',(req,res)=>{
     })
 })
 
-router.get('/hello',(req,res)=>{
-    res.send('<h1>Hello</h1>')
-})
-
 // validator.body(createUserSchema)
 
 router.post('/create',createAccount)
 
-router.post('/login',validator.body(loginSchema),loginController)
+router.post('/login',loginController)
 
 router.post('/logout',logoutController) // checks if user is logged by checking cookie then logout accordingly
 

@@ -1,8 +1,10 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
-const cors = require('cors')
-const csurf = require('csurf')
+// const cors = require('cors')
+// const csurf = require('csurf')
+const {authChecker} = require('./middleware/routing_middleware.js')
+const {getUserPasswords} = require('./controllers/password_controllers/get_passwords.js')
 const path = require('path')
 const db = require('./models') // imports 
 
@@ -11,17 +13,14 @@ const cookieParser = require('cookie-parser')
 // middleware
 app.use(express.json()) // to parse incoming json payload
 app.use(cookieParser()) // cookie parser middleware
-app.use(cors())
-app.use(express.urlencoded({extended:false}))
-app.set('view engine', 'ejs');
+// app.use(cors())
+// app.use(express.urlencoded({extended:false}))
+// // app.use(authChecker) // custom routing middleware
+app.set('views', './views')
+app.set('view engine','ejs')
 
 
 
-// app.get('/login') // login page endpoint
-// app.get('/mainpage') // main page endpoint containing each user password in a card
-// app.get('/mainpage/edit') // edit page
-// app.get('/mainpage/delete') // delete page
-// app.get('/logout')
 
 app.use('/auth',require('./routes/authorisation.js')) // auth endpoint
 app.use('/actions',require('./routes/actions.js')) // actions endpoint
@@ -34,11 +33,18 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/create',(req,res)=>{
+    console.log(typeof req.cookies)
     res.sendFile(__dirname + '/public/templates/create_account.html')
 }) // create endpoint which renders create account page
 
 app.get('/login',(req,res)=>{
     res.sendFile(__dirname + '/public/templates/login.html')
+})
+
+app.get('/here',(req,res)=>{
+    res.send({
+        msg:"Here endpoint"
+    })
 })
 
 app.get('/users/exists',async (req,res)=>{
@@ -70,6 +76,13 @@ app.get('/email/exists',async (req,res)=>{
     })
 })
 
+// app.get('/login') // login page endpoint
+app.get('/mainpage', authChecker, getUserPasswords) 
+
+// main page endpoint containing each user password in a card
+// app.get('/mainpage/edit') // edit page
+// app.get('/mainpage/delete') // delete page
+// app.get('/logout')
 
 
 

@@ -1,0 +1,5 @@
+- Password Manager
+
+- Will have a create account and login page for users to enter their authentication details 
+- Will have a main page view that shows passwords in cards and if there is no passwords stored for the user there will be a add password button in the middle 
+- Will also have a logouut page
