@@ -23,6 +23,7 @@ const loggedInRequestMiddleware = (req,res,next)=>{
     if (!req.cookies.logged_in || !req.cookies.master_password){
         return next()
     }
+    console.log("REDIRECTED TO MAINPAGE")
     return res.redirect('/mainpage') // if valid then user is logged and redirected to mainpage
 
 }

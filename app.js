@@ -5,6 +5,7 @@ require('dotenv').config()
 // const csurf = require('csurf')
 const {authChecker,generalRequestMiddleware,loggedInRequestMiddleware} = require('./middleware/routing_middleware.js')
 const {getUserPasswords} = require('./controllers/password_controllers/get_passwords.js')
+const {addPassword} = require('./controllers/password_controllers/add_password.js')
 const path = require('path')
 const db = require('./models') // imports 
 
@@ -84,7 +85,11 @@ app.get('/mainpage', authChecker, getUserPasswords)
 // app.get('/mainpage/delete') // delete page
 // app.get('/logout')
 
-
+app.get('/mainpage/add',authChecker,(req,res)=>{
+    res.sendFile(__dirname + '/public/templates/add_password.html')
+    // return res.redirect('www.google.com')
+})
+app.post('/mainpage/add',addPassword) // post endpoint to add password
 
 // error handler middleware
 app.use((err,req,res,next)=>{
@@ -105,6 +110,7 @@ db.sequelize.sync().then(()=>{
         console.log(`Listening on port ${process.env.PORT}`)
     })    
 })
+
 
 
 
