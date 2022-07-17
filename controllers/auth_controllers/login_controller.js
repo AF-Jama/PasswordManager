@@ -17,7 +17,9 @@ const loginController = async (req,res,next) =>{
             res.cookie('logged_in',true,{
                 expires: new Date(Date.now()+(hour*24*31)) // sets expiration date to one month to the future
             })
-            res.cookie("username",username)
+            res.cookie("username",username,{
+                expires: new Date(Date.now()+(hour*24*31))
+            })
 
             res.cookie('master_password',masterPass.master_password,{
                 expires: new Date(Date.now()+(hour*24*31)) // sets expiration date to one month to the future

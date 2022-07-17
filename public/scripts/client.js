@@ -11,7 +11,7 @@ const button = document.getElementById('create-account-btn')
 const xmlhttp = new XMLHttpRequest()
 
 // form event listener on click event
-form.addEventListener('submit',async e=>{
+form.addEventListener('submit', e=>{
     e.preventDefault() // prevents default value from occuring which clears the page and reloads
     // values of inputs 
     console.log("I am hewre right now")
@@ -21,8 +21,8 @@ form.addEventListener('submit',async e=>{
     const masterPasswordValue = masterPassword.value.trim()
     console.log("Hello..")
     // validatiing inputs
-    await checkUsername(usernameValue)
-    await checkEmail(emailValue)
+    checkUsername(usernameValue)
+    checkEmail(emailValue)
     checkPassword(masterPasswordValue)
 
     // const response = await fetch('/auth/create',{

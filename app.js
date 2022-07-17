@@ -3,7 +3,7 @@ const app = express()
 require('dotenv').config()
 // const cors = require('cors')
 // const csurf = require('csurf')
-const {authChecker} = require('./middleware/routing_middleware.js')
+const {authChecker,generalRequestMiddleware,loggedInRequestMiddleware} = require('./middleware/routing_middleware.js')
 const {getUserPasswords} = require('./controllers/password_controllers/get_passwords.js')
 const path = require('path')
 const db = require('./models') // imports 
@@ -16,7 +16,7 @@ app.use(cookieParser()) // cookie parser middleware
 // app.use(cors())
 // app.use(express.urlencoded({extended:false}))
 // // app.use(authChecker) // custom routing middleware
-app.set('views', './views')
+app.set('views',path.join(__dirname,'views'))
 app.set('view engine','ejs')
 
 
@@ -32,17 +32,17 @@ app.get('/',(req,res)=>{
     res.json({msg:"Password manager"})
 })
 
-app.get('/create',(req,res)=>{
+app.get('/create',loggedInRequestMiddleware,(req,res)=>{
     console.log(typeof req.cookies)
     res.sendFile(__dirname + '/public/templates/create_account.html')
 }) // create endpoint which renders create account page
 
-app.get('/login',(req,res)=>{
+app.get('/login',loggedInRequestMiddleware,(req,res)=>{
     res.sendFile(__dirname + '/public/templates/login.html')
 })
 
 app.get('/here',(req,res)=>{
-    res.send({
+    res.send({  
         msg:"Here endpoint"
     })
 })
@@ -105,3 +105,6 @@ db.sequelize.sync().then(()=>{
         console.log(`Listening on port ${process.env.PORT}`)
     })    
 })
+
+
+
