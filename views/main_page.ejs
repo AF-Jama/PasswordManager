@@ -30,12 +30,13 @@
           <div class="card-body">
               <h5 class="card-title"><%=password.site%></h5>
               <p class="card-text">Your password is shown below, click to reveal</p>
-              <a href="#" class="btn btn-primary">password.encrypt_password</a>
+              <a href="#" class="btn btn-primary"><%=password.encrypt_password.substring(0,6) + '...'%></a>
           </div>
         </div>
     </div>
     <%}%>
   <%}%>
+  <a href="/mainpage/add"><button>Add Passwords</button></a>
 
 </body>
 </html>
