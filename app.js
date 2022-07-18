@@ -10,6 +10,7 @@ const path = require('path')
 const db = require('./models') // imports 
 
 const cookieParser = require('cookie-parser')
+const { logoutController } = require('./controllers/auth_controllers/logout_controller.js')
 
 // middleware
 app.use(express.json()) // to parse incoming json payload
@@ -83,7 +84,7 @@ app.get('/mainpage', authChecker, getUserPasswords)
 // main page endpoint containing each user password in a card
 // app.get('/mainpage/edit') // edit page
 // app.get('/mainpage/delete') // delete page
-// app.get('/logout')
+app.post('/logout',logoutController) // logout post endpoint
 
 app.get('/mainpage/add',authChecker,(req,res)=>{
     res.sendFile(__dirname + '/public/templates/add_password.html')

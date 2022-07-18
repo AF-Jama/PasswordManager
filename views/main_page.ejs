@@ -36,7 +36,11 @@
     </div>
     <%}%>
   <%}%>
-  <a href="/mainpage/add"><button>Add Passwords</button></a>
+  <a href="/mainpage/add"><button btn btn-primary>Add Passwords</button></a>
+  <!-- <a href="/mainpage/add"><button>Logout</button></a> -->
+  <form action="/logout" method="post" id="logout-form">
+    <button type="submit" id="logout-submit-btn" class="btn btn-primary" style="margin-top: 0.5rem">Logout</button>
+  </form>
 
 </body>
 </html>

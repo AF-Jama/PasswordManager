@@ -15,7 +15,6 @@ const getUserPasswords = async (req,res,next)=>{
     // now to get all passwords stored
     const storedPasswords = await db.passwordTable.findAll({where:{masterId:masterPassId}}) // gets all stored passwords in array
     console.log("OVERE HERWE11")
-    console.log(storedPasswords)
     // return res.sendFile(path.resolve(__dirname + '../../../views/main_page'))
     return res.render(path.resolve(__dirname + '../../../views/main_page'),{  
         data:storedPasswords 
