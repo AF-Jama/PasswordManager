@@ -19,7 +19,6 @@ const getUserPasswords = async (req,res,next)=>{
     return res.render(path.resolve(__dirname + '../../../views/main_page'),{  
         data:storedPasswords 
     })
-    console.log("OVER HEREEWW")
     
 
 }

@@ -92,6 +92,14 @@ app.get('/mainpage/add',authChecker,(req,res)=>{
 })
 app.post('/mainpage/add',addPassword) // post endpoint to add password
 
+app.get('/about',(req,res)=>{
+    return res.sendFile(__dirname + '/public/templates/about_us.html')
+})
+
+app.get('/home',(req,res)=>{
+    return res.sendFile(__dirname + '/public/templates/home.html')
+})
+
 // error handler middleware
 app.use((err,req,res,next)=>{
     if(err){

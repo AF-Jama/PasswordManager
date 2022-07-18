@@ -20,10 +20,10 @@
     <div class = "container-fluid">
       <h1 style="text-align: center">No Passwords stored on your account</h1>
       <hr>
-      <a href="/mainpage/add"><button>Add Passwords</button></a>
+      <a href="/mainpage/add"><button class = "btn btn-primary">Add Passwords</button></a>
    </div>
   <%} else{%>
-    <div class="row">
+    <div class="row" style="margin-bottom: 5px;">
     <% for (const password of data){%>
       <div class="col-sm-6">
         <div class="card">
@@ -33,14 +33,16 @@
               <a href="#" class="btn btn-primary"><%=password.encrypt_password.substring(0,6) + '...'%></a>
           </div>
         </div>
-    </div>
+      </div>
     <%}%>
   <%}%>
-  <a href="/mainpage/add"><button btn btn-primary>Add Passwords</button></a>
-  <!-- <a href="/mainpage/add"><button>Logout</button></a> -->
-  <form action="/logout" method="post" id="logout-form">
-    <button type="submit" id="logout-submit-btn" class="btn btn-primary" style="margin-top: 0.5rem">Logout</button>
-  </form>
+  </div>
+  <a href="/mainpage/add"><button class = "btn btn-primary">Add Passwords</button></a>
+  <div class = "container-fluid">
+    <form action="/logout" method="post" id="logout-form">
+      <button type="submit" id="logout-submit-btn" class="btn btn-primary" style="margin-top: 0.5rem">Logout</button>
+    </form>
+  </div>
 
 </body>
 </html>
