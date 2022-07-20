@@ -30,19 +30,48 @@
           <div class="card-body">
               <h5 class="card-title"><%=password.site%></h5>
               <p class="card-text">Your password is shown below, click to reveal</p>
-              <a href="#" class="btn btn-primary"><%=password.encrypt_password.substring(0,6) + '...'%></a>
+              <button class="btn btn-primary" id="encrypt-btn" style="width: 150px; overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;"><%=password.encrypt_password%></button>
           </div>
         </div>
       </div>
     <%}%>
+    <a href="/mainpage/add"><button class = "btn btn-primary">Add Passwords</button></a>
   <%}%>
   </div>
-  <a href="/mainpage/add"><button class = "btn btn-primary">Add Passwords</button></a>
   <div class = "container-fluid">
     <form action="/logout" method="post" id="logout-form">
       <button type="submit" id="logout-submit-btn" class="btn btn-primary" style="margin-top: 0.5rem">Logout</button>
     </form>
+    <button type="submit" id="show-all-passwords-btn" class="btn btn-primary" style="margin-top: 0.5rem">Show all Passwords</button>
   </div>
+  <!-- <script>
+    console.log(window.Cryptrr)
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+    const buttons = document.querySelectorAll('#encrypt-btn') // returns all buttons with specific id in array data structure 
+    for(button of buttons){
+      button.addEventListener('click',()=>{
+        console.log("I clicked the encrypt-decrypt button")
+        const cookie = getCookie('master_password') // returns cookie stored in browser side(res)
+        console.log()
+      })
 
+    }
+  </script> -->
+  <!-- <script src="scripts/toggle.js"></script> -->
+  <script src="scripts/bundle.js"></script>
 </body>
 </html>
