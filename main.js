@@ -23,18 +23,24 @@ const a = document.getElementById('encrypt-btn')
 console.log(a)
 const buttons = document.querySelectorAll('#encrypt-btn') // returns all buttons with specific id in array data structure 
 for(const button of buttons){
-    const encryptedString = button.textContent || button.innerText
+    const encryptedString = button.textContent || button.innerText // gets encrypted string from button
     button.addEventListener('click',()=>{
         const cryptr = new Cryptr(getCookie('master_password'))
         const buttonValue =  button.textContent || button.innerText
-        const dcryptedPassword = cryptr.decrypt(buttonValue)
-        if(buttonValue!==dcryptedPassword){
-            // if button value is not equal to the decrypted password then it is shown
-            button.innerHTML = dcryptedPassword
+        if(buttonValue===encryptedString){
+          // if button value is not equal to the decrypted password then it is shown
+          const dcryptedPassword = cryptr.decrypt(buttonValue)
+          button.innerHTML = dcryptedPassword
+          button.style.overflow = 'visible'
+          button.style.width = 'auto'
         }
         else{
             //else if the decrypted password is shown the ecnrypted password is shown
+            console.log(button.style.color) 
+            console.log(encryptedString)
             button.innerHTML = encryptedString
+            button.style.overflow = 'hidden'
+            button.style.width = '150px'
         }
         console.log(dcryptedPassword)
         console.log(buttonValue)
