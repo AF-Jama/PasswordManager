@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Passwords</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+<body>
+  <%- include('./partials/nav') %> 
+
+  <!-- <% if (data.length === 0) {%>
+    <h1>EQUAL</h1>
+  <%} else {%>
+    <h1>NOT EQUAL</h1>
+  <%}%> -->
+
+  <% if (data.length === 0) {%>
+    <div class = "container-fluid">
+      <h1 style="text-align: center">No Passwords stored on your account</h1>
+      <hr>
+      <a href="/mainpage/add"><button class = "btn btn-primary">Add Passwords</button></a>
+   </div>
+  <%} else{%>
+    <div class="row" style="margin-bottom: 5px;">
+    <% for (const password of data){%>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+              <h5 class="card-title"><%=password.site%></h5>
+              <p class="card-text">Your password is shown below, click to reveal</p>
+              <button class="btn btn-primary" id="encrypt-btn" style="width: 150px; overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;"><%=password.encrypt_password%></button>
+          </div>
+        </div>
+      </div>
+    <%}%>
+    <a href="/mainpage/add"><button class = "btn btn-primary">Add Passwords</button></a>
+  <%}%>
+  </div>
+  <div class = "container-fluid">
+    <form action="/logout" method="post" id="logout-form">
+      <button type="submit" id="logout-submit-btn" class="btn btn-primary" style="margin-top: 0.5rem">Logout</button>
+    </form>
+    <button type="submit" id="show-all-passwords-btn" class="btn btn-primary" style="margin-top: 0.5rem">Show all Passwords</button>
+  </div>
+  <!-- <script>
+    console.log(window.Cryptrr)
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+}
+    const buttons = document.querySelectorAll('#encrypt-btn') // returns all buttons with specific id in array data structure 
+    for(button of buttons){
+      button.addEventListener('click',()=>{
+        console.log("I clicked the encrypt-decrypt button")
+        const cookie = getCookie('master_password') // returns cookie stored in browser side(res)
+        console.log()
+      })
+
+    }
+  </script> -->
+  <!-- <script src="scripts/toggle.js"></script> -->
+  <script src="scripts/bundle.js"></script>
+</body>
+</html>
