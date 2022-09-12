@@ -115,7 +115,7 @@ app.use((err,req,res,next)=>{
 app.use(express.static(path.join(__dirname + '/public'))) // references public file in current directory
 
 db.sequelize.sync().then(()=>{
-    app.listen(process.env.PORT,()=>{
+    app.listen(process.env.PORT||5000,()=>{
         console.log(`Listening on port ${process.env.PORT}`)
     })    
 })
