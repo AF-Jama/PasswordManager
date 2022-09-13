@@ -28,10 +28,9 @@ app.use('/auth',require('./routes/authorisation.js')) // auth endpoint
 app.use('/actions',require('./routes/actions.js')) // actions endpoint
 
 
-// base route -> which points login page when NOT logged in and redirects to password manager main page when user is logged  
-app.get('/',(req,res)=>{
-    console.log("Hello")
-    res.json({msg:"Password manager"})
+// base route -> which points login page when NOT logged in and redirects to password manager main page when user is logged
+app.get('/',loggedInRequestMiddleware,(req,res)=>{
+    return res.sendFile(__dirname + '/public/templates/login.html');
 })
 
 app.get('/create',loggedInRequestMiddleware,(req,res)=>{
@@ -117,7 +116,7 @@ app.use(express.static(path.join(__dirname + '/public'))) // references public f
 db.sequelize.sync().then(()=>{
     app.listen(process.env.PORT||5000,()=>{
         console.log(`Listening on port ${process.env.PORT}`)
-    })    
+    })
 })
 
 

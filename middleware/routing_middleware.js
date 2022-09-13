@@ -2,6 +2,7 @@
 const authChecker = (req,res,next) =>{
     console.log(req.cookies['logged_in'])
     if (!req.cookies.logged_in || !req.cookies.master_password){
+        console.log(`LOGGED IN COOKIES KEY VALUE IS ${req.cookies.logged_in}`)
         return res.redirect('/login')
     } // if not logged in or request doesnt have master password stored then user is redirected to the login endpoint
     console.log("AUTH CHECKER PASSED")

@@ -47,7 +47,7 @@ for(const button of buttons){
 }
 
 
-const show_button = document.getElementById('show-all-passwords-btn') // show all button
+const show_button = document.getElementById('show-passwords-btn') // show all button
 const passwordButtons = document.querySelectorAll('#encrypt-btn')
 show_button.addEventListener('click',e=>{
   e.preventDefault()
